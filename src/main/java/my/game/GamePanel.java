@@ -7,6 +7,7 @@ package my.game;
 import java.awt.*;
 import javax.swing.*;
 import my.entity.*;
+import my.tile.TileManager;
 
 /**
  *
@@ -18,11 +19,11 @@ import my.entity.*;
     private final int originalTileSize = 16;
     private final int scale = 3;
 
-    public  final int tileSize = originalTileSize * scale;
-    private final int maxScreenCol = 16;
-    private final int maxScreenRow = 12;
-    private final int screenWidth = tileSize * maxScreenCol;
-    private final int screenHeight = tileSize * maxScreenRow;
+    public final int tileSize = originalTileSize * scale;
+    public final int maxScreenCol = 16;
+    public final int maxScreenRow = 12;
+    public final int screenWidth = tileSize * maxScreenCol;
+    public final int screenHeight = tileSize * maxScreenRow;
 
     /* Gameplay */
     private Thread gameThread;
@@ -34,8 +35,8 @@ import my.entity.*;
     /* Player */
     Player player;
     
-    int playerX = 100;
-    int playerY = 100;
+    /* World */
+     TileManager tileManager;
 
     public GamePanel()
     {
@@ -50,6 +51,8 @@ import my.entity.*;
         player = new Player(this, keyHandler);
         player.setBoundaries(-tileSize / 2, screenHeight - tileSize / 2,
                              -tileSize / 2, screenWidth - tileSize / 2);
+        
+        tileManager = new TileManager(this);
     }
 
     public void startGameThread()
@@ -91,7 +94,9 @@ import my.entity.*;
         super.paintComponent(graphics);
 
         Graphics2D graphics2D = (Graphics2D) graphics;
+        tileManager.draw(graphics2D);
         player.draw(graphics2D);
+        
         graphics2D.dispose();
     }
 }

@@ -53,24 +53,15 @@ public class Player extends Entity
     public void loadPlayerImages()
     {
         try
-        {
-//            northward1 = ImageIO.read(new File("res/boy_up_1.png"));
-//            northward2 = ImageIO.read(new File("res/boy_up_2.png"));
-//            southward1 = ImageIO.read(new File("res/boy_down_1.png"));
-//            southward2 = ImageIO.read(new File("res/boy_down_2.png"));
-//            westward1 = ImageIO.read(new File("res/boy_left_1.png"));
-//            westward2 = ImageIO.read(new File("res/boy_left_2.png"));
-//            eastward1 = ImageIO.read(new File("res/boy_right_1.png"));
-//            eastward2 = ImageIO.read(new File("res/boy_right_2.png"));
-            
-            northward1 = ImageIO.read(getClass().getResourceAsStream("/boy_up_1.png"));
-            northward2 = ImageIO.read(getClass().getResourceAsStream("/boy_up_2.png"));
-            southward1 = ImageIO.read(getClass().getResourceAsStream("/boy_down_1.png"));
-            southward2 = ImageIO.read(getClass().getResourceAsStream("/boy_down_2.png"));
-            westward1 = ImageIO.read(getClass().getResourceAsStream("/boy_left_1.png"));
-            westward2 = ImageIO.read(getClass().getResourceAsStream("/boy_left_2.png"));
-            eastward1 = ImageIO.read(getClass().getResourceAsStream("/boy_right_1.png"));
-            eastward2 = ImageIO.read(getClass().getResourceAsStream("/boy_right_2.png"));
+        {   
+            northward1 = ImageIO.read(getClass().getResourceAsStream("/player/north 1.png"));
+            northward2 = ImageIO.read(getClass().getResourceAsStream("/player/north 2.png"));
+            southward1 = ImageIO.read(getClass().getResourceAsStream("/player/south 1.png"));
+            southward2 = ImageIO.read(getClass().getResourceAsStream("/player/south 2.png"));
+            westward1 = ImageIO.read(getClass().getResourceAsStream("/player/west 1.png"));
+            westward2 = ImageIO.read(getClass().getResourceAsStream("/player/west 2.png"));
+            eastward1 = ImageIO.read(getClass().getResourceAsStream("/player/east 1.png"));
+            eastward2 = ImageIO.read(getClass().getResourceAsStream("/player/east 2.png"));
         }
         catch (IOException e)
         {
