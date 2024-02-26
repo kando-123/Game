@@ -16,15 +16,15 @@ import my.game.*;
  */
 public class TileManager
 {
-    private final GamePanel gamePanel;
+    private final GamePanel panel;
     private final Map<TileType, Tile> tiles;
     TileType layout[][];
 
-    public TileManager(GamePanel panel)
+    public TileManager(GamePanel gamePanel)
     {
-        gamePanel = panel;
+        panel = gamePanel;
         tiles = new HashMap<>();
-        layout = new TileType[panel.maxScreenCol][panel.maxScreenRow];
+        layout = new TileType[panel.maxWorldCol][panel.maxWorldRow];
 
         loadTileImages();
         loadMap("/maps/map001.txt");
@@ -55,12 +55,12 @@ public class TileManager
             InputStream stream = getClass().getResourceAsStream(mapPath);
             BufferedReader reader = new BufferedReader(new InputStreamReader(stream));
 
-            for (int row = 0; row < gamePanel.maxScreenRow; ++row)
+            for (int row = 0; row < panel.maxWorldRow; ++row)
             {
                 String line = reader.readLine();
                 String words[] = line.split(" ");
-                assert (words.length == gamePanel.maxScreenCol);
-                for (int col = 0; col < gamePanel.maxScreenCol; ++col)
+                assert (words.length == panel.maxScreenCol);
+                for (int col = 0; col < panel.maxWorldCol; ++col)
                 {
                     layout[col][row] = TileType.decodeAbbreviation(words[col]);
                 }
@@ -74,14 +74,31 @@ public class TileManager
 
     public void draw(Graphics2D graphics2D)
     {
-        int tileSize = gamePanel.tileSize;
-        for (int col = 0, x = 0; col < gamePanel.maxScreenCol; ++col, x += tileSize)
+        int playerX = panel.getPlayerGlobalX();
+        int playerY = panel.getPlayerGlobalY();
+        int minCol = Math.max((playerX - panel.screenWidth / 2) / panel.tileSize, 0);
+        int minRow = Math.max((playerY - panel.screenHeight / 2) / panel.tileSize, 0);
+        int maxCol = Math.min((playerX + panel.screenWidth / 2) / panel.tileSize + 2, panel.maxWorldCol);
+        int maxRow = Math.min((playerY + panel.screenHeight / 2) / panel.tileSize + 2, panel.maxWorldRow);
+        
+        int worldCol = minCol;
+        int penX = panel.getScreenCenterX() - panel.getPlayerGlobalX() + minCol * panel.tileSize;
+        int minPenY = panel.getScreenCenterY() - panel.getPlayerGlobalY() + minRow * panel.tileSize;
+        while (worldCol < maxCol)
         {
-            for (int row = 0, y = 0; row < gamePanel.maxScreenRow; ++row, y += tileSize)
+            int worldRow = minRow;
+            int penY = minPenY;
+            while (worldRow < maxRow)
             {
-                graphics2D.drawImage(tiles.get(layout[col][row]).image,
-                        x, y, tileSize, tileSize, null);
+                graphics2D.drawImage(tiles.get(layout[worldCol][worldRow]).image,
+                        penX, penY, panel.tileSize, panel.tileSize, null);
+                
+                ++worldRow;
+                penY += panel.tileSize;
             }
-        }
+            
+            ++worldCol;
+            penX += panel.tileSize;
+        } 
     }
 }

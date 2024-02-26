@@ -24,6 +24,9 @@ public class Player extends Entity
     private int westernBoundary;
     private int easternBoundary;
     
+    public final int screenX;
+    public final int screenY;
+    
     private int stepCounter;
     private int imageIndex;
     
@@ -32,14 +35,17 @@ public class Player extends Entity
         gamePanel = panel;
         keyHandler = handler;
         
+        screenX = (gamePanel.screenWidth - gamePanel.tileSize) / 2;
+        screenY = (gamePanel.screenHeight - gamePanel.tileSize) / 2;
+        
         setDefaultValues();
         loadPlayerImages();
     }
     
     public void setDefaultValues()
     {
-        xCoord = 256;
-        yCoord = 128;
+        worldX = gamePanel.tileSize * 24;
+        worldY = gamePanel.tileSize * 24;
         speed = 4;
         
         northernBoundary = Integer.MIN_VALUE;
@@ -108,22 +114,22 @@ public class Player extends Entity
         if (keyHandler.northIsPressed())
         {
             direction = Direction.NORTH;
-            yCoord = Math.max(yCoord - speed, northernBoundary);
+            worldY = Math.max(worldY - speed, northernBoundary);
         }
         if (keyHandler.southIsPressed())
         {
             direction = Direction.SOUTH;
-            yCoord = Math.min(yCoord + speed, southernBoundary);
+            worldY = Math.min(worldY + speed, southernBoundary);
         }
         if (keyHandler.westIsPressed())
         {
             direction = Direction.WEST;
-            xCoord = Math.max(xCoord - speed, westernBoundary);
+            worldX = Math.max(worldX - speed, westernBoundary);
         }
         if (keyHandler.eastIsPressed())
         {
             direction = Direction.EAST;
-            xCoord = Math.min(xCoord + speed, easternBoundary);
+            worldX = Math.min(worldX + speed, easternBoundary);
         }
     }
     
@@ -149,6 +155,16 @@ public class Player extends Entity
                 image = imageIndex == 0 ? eastward1 : eastward2;
             }
         }
-        graphics2D.drawImage(image, xCoord, yCoord, gamePanel.tileSize, gamePanel.tileSize, null);
+        graphics2D.drawImage(image, screenX, screenY, gamePanel.tileSize, gamePanel.tileSize, null);
+    }
+    
+    public int getGlobalX()
+    {
+        return worldX;
+    }
+    
+    public int getGlobalY()
+    {
+        return worldY;
     }
 }

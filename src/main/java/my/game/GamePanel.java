@@ -36,7 +36,11 @@ import my.tile.TileManager;
     Player player;
     
     /* World */
-     TileManager tileManager;
+    TileManager tileManager;
+    public final int maxWorldCol = 49;
+    public final int maxWorldRow = 49;
+    public final int worldWidth = tileSize * maxWorldCol;
+    public final int worldHeight = tileSize * maxWorldRow;
 
     public GamePanel()
     {
@@ -49,8 +53,8 @@ import my.tile.TileManager;
         this.setFocusable(true);
         
         player = new Player(this, keyHandler);
-        player.setBoundaries(-tileSize / 2, screenHeight - tileSize / 2,
-                             -tileSize / 2, screenWidth - tileSize / 2);
+//        player.setBoundaries(-tileSize / 2, screenHeight - tileSize / 2,
+//                             -tileSize / 2, screenWidth - tileSize / 2);
         
         tileManager = new TileManager(this);
     }
@@ -98,5 +102,25 @@ import my.tile.TileManager;
         player.draw(graphics2D);
         
         graphics2D.dispose();
+    }
+    
+    public int getPlayerGlobalX()
+    {
+        return player.getGlobalX();
+    }
+    
+    public int getPlayerGlobalY()
+    {
+        return player.getGlobalY();
+    }
+    
+    public int getScreenCenterX()
+    {
+        return player.screenX;
+    }
+    
+    public int getScreenCenterY()
+    {
+        return player.screenY;
     }
 }

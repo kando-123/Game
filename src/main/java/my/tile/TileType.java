@@ -14,7 +14,11 @@ public enum TileType
 {
     LAND("/tiles/land.png", "LAN"),
     WATER("/tiles/water.png", "WAT"),
-    WALL("/tiles/wall.png", "WAL");
+    WALL("/tiles/wall.png", "WAL"),
+    
+    EARTH("/tiles/earth.png", "EAR"),
+    SAND("/tiles/sand.png", "SAN"),
+    TREE("/tiles/tree.png", "TRE");
     
     private final String path;
     private final String abbreviation;

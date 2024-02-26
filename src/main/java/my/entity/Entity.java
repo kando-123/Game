@@ -12,8 +12,8 @@ import java.awt.image.BufferedImage;
  */
 public class Entity
 {
-    protected int xCoord;
-    protected int yCoord;
+    protected int worldX;
+    protected int worldY;
     protected int speed;
     
     protected Direction direction;
