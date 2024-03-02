@@ -4,6 +4,7 @@
  */
 package my.entity;
 
+import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 
 /**
@@ -22,4 +23,36 @@ public class Entity
     protected BufferedImage westward1, westward2;
     protected BufferedImage eastward1, eastward2;
     
+    protected Rectangle solidArea;
+    protected boolean collisionOn;
+    
+    public int getWorldX()
+    {
+        return worldX;
+    }
+    
+    public int getWorldY()
+    {
+        return worldY;
+    }
+    
+    public int getSpeed()
+    {
+        return speed;
+    }
+    
+    public Direction getDirection()
+    {
+        return direction;
+    }
+    
+    public Rectangle getSolidArea()
+    {
+        return solidArea;
+    }
+    
+    public void setCollision(boolean isColliding)
+    {
+        collisionOn = isColliding;
+    }
 }

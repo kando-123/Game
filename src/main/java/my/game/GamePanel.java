@@ -7,13 +7,14 @@ package my.game;
 import java.awt.*;
 import javax.swing.*;
 import my.entity.*;
+import my.item.Item;
 import my.tile.TileManager;
 
 /**
  *
  * @author Kay Jay O'Nail
  */
- public class GamePanel extends JPanel implements Runnable
+public class GamePanel extends JPanel implements Runnable
 {
     /* Screen Settings */
     private final int originalTileSize = 16;
@@ -28,6 +29,7 @@ import my.tile.TileManager;
     /* Gameplay */
     private Thread gameThread;
     private final int fps = 60;
+    private CollisionChecker collisionChecker;
 
     /* Input */
     private final KeyHandler keyHandler;
@@ -41,6 +43,9 @@ import my.tile.TileManager;
     public final int maxWorldRow = 49;
     public final int worldWidth = tileSize * maxWorldCol;
     public final int worldHeight = tileSize * maxWorldRow;
+    
+    /* Items */
+    public Item[] items;
 
     public GamePanel()
     {
@@ -57,6 +62,9 @@ import my.tile.TileManager;
 //                             -tileSize / 2, screenWidth - tileSize / 2);
         
         tileManager = new TileManager(this);
+        collisionChecker = new CollisionChecker(this);
+        
+        items = new Item[10];
     }
 
     public void startGameThread()
@@ -122,5 +130,10 @@ import my.tile.TileManager;
     public int getScreenCenterY()
     {
         return player.screenY;
+    }
+    
+    public CollisionChecker getCollisionChecker()
+    {
+        return collisionChecker;
     }
 }

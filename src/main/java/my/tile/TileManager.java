@@ -101,4 +101,17 @@ public class TileManager
             penX += panel.tileSize;
         } 
     }
+    
+    public TileType getTileType(int col, int row)
+    {
+        if (col >= 0 && col < panel.maxWorldCol &&
+                row >= 0 && row < panel.maxWorldRow)
+        {
+            return layout[col][row];
+        }
+        else
+        {
+            return null;
+        }
+    }
 }
